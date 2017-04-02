@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chain_of_Responsibilities"
+        xmlns:controls ="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Title="Параметры" Height="200" Width="250">
     <Grid Margin="10">
@@ -23,7 +24,7 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Label Content="Ширина" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TBWidth" Grid.Row="1" Margin="5" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="TBWidth" Text="100" Grid.Row="1" Margin="5" VerticalContentAlignment="Center"/>
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">
@@ -32,7 +33,7 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <Label Content="Высота" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                <TextBox x:Name="TBHeight" Grid.Row="1" Margin="5" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TBHeight" Text="80" Grid.Row="1" Margin="5" VerticalContentAlignment="Center"/>
             </Grid>
         </Grid>
         <Button x:Name="BOk" Content="Ok" Grid.Row="2" Margin="50, 15" Click="BOk_Click"/>

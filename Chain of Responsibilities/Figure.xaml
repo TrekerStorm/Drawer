@@ -20,6 +20,7 @@
             <ComboBox x:Name="CBFigure" Grid.Column="0" Margin="10" VerticalContentAlignment="Center" SelectionChanged="CBFigure_SelectionChanged">
                 <ComboBoxItem Content="Эллипс"/>
                 <ComboBoxItem Content="Прямоугольник"/>
+                <ComboBoxItem Content="Треугольгник"/>
             </ComboBox>
             <Button x:Name="BSettings" Grid.Column="1" Content="Настройки" Margin="10" Click="BSettings_Click"/>
         </Grid>

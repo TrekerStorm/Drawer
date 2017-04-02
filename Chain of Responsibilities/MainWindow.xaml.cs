@@ -12,22 +12,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace Chain_of_Responsibilities
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
-        List<Rectangle> rects = new List<Rectangle>();
-        List<Ellipse> ellipses = new List<Ellipse>();
-
         public Shape figure;
+
+        List<Command> commands = new List<Command>();
+        int commandCounter = 0;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            Command.canvas = canvas;
         }
 
         private void MIDraw_Click(object sender, RoutedEventArgs e)
@@ -39,35 +42,29 @@ namespace Chain_of_Responsibilities
 
         private void canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Shape newItem;
-            if (figure is Ellipse)
-            {
-                newItem = new Ellipse
-                {
-                    Height = figure.Height,
-                    Width = figure.Width
-                };
-                ellipses.Add(newItem as Ellipse);
-            }
-            else
-            {
-                newItem = new Rectangle
-                {
-                    Height = figure.Height,
-                    Width = figure.Width
-                };
-                rects.Add(newItem as Rectangle);
-            }
+            Command currentCommand;
 
             Point start = e.GetPosition(canvas);
-            newItem.Stroke = Brushes.Black;
-            newItem.StrokeThickness = 1;
-            Canvas.SetLeft(newItem, start.X - newItem.Width/2);
-            Canvas.SetTop(newItem, start.Y - newItem.Height/2);
-            canvas.Children.Add(newItem);
+
+            if (figure is Ellipse)
+            {
+                currentCommand = new EllipseCommand(figure, start);   
+            }
+            else if (figure is Rectangle)
+            {
+                currentCommand = new RectangleCommand(figure, start);
+            }
+            else //(figure is Triangle)
+            {
+                currentCommand = new TriangleCommand(figure, start);              
+            }
+
+            currentCommand.Execute();
+            commands.Add(currentCommand);
+            commandCounter++;
         }
 
-        private void clearCanvas_Click(object sender, RoutedEventArgs e)
+        private void BClsCanvas_Click(object sender, RoutedEventArgs e)
         {
             canvas.Children.Clear();
         }
@@ -76,6 +73,16 @@ namespace Chain_of_Responsibilities
         {
             var wnd = new About();
             wnd.ShowDialog();
+        }
+
+        private void BUndo_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BRedo_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

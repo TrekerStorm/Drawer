@@ -50,8 +50,13 @@ namespace Chain_of_Responsibilities
         {
             if (CBFigure.SelectedIndex == 0)
                 f = new Ellipse();
-            else
+            if (CBFigure.SelectedIndex == 1)
                 f = new Rectangle();
+            if (CBFigure.SelectedIndex == 2)
+                f = new Triangle();
+
+            f.Stroke = Brushes.Black;
+            f.StrokeThickness = 1;
         }
     }
 }
