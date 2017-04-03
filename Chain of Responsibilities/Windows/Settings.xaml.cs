@@ -31,8 +31,17 @@ namespace Chain_of_Responsibilities
             {
                 mainWnd.f.Height = Convert.ToInt32(TBHeight.Text);
                 mainWnd.f.Width = Convert.ToInt32(TBWidth.Text);
+
+                var h1 = new UnSelectedShapeHandler();
+                var h2 = new BadShapeDimensionsHanadler();
+                h1.Successor = h2;
+                var success = h1.HandleRequest(mainWnd.f);
+
+                if(success)
+                {
+                    this.Close();
+                }
             }
-            this.Close();
         }
     }
 }

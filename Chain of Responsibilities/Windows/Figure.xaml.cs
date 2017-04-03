@@ -20,6 +20,8 @@ namespace Chain_of_Responsibilities
     public partial class Figure : Window
     {
         public Shape f;
+        Helper h1 = new BadShapeDimensionsHanadler(), 
+               h2 = new UnSelectedShapeHandler();
 
         public Figure()
         {
@@ -28,22 +30,32 @@ namespace Chain_of_Responsibilities
 
         private void BSettings_Click(object sender, RoutedEventArgs e)
         {
-            var wnd = new Settings();
-            wnd.Owner = this;
-            wnd.ShowDialog();
+            //h1.Successor = h2;
+            var success = h2.HandleRequest(f);
+            if (success)
+            {
+                var wnd = new Settings()
+                {
+                    Owner = this
+                };
+                wnd.ShowDialog();
+            }
         }
 
         private void BOk_Click(object sender, RoutedEventArgs e)
         {
             var mainWnd = this.Owner as MainWindow;
-            if(mainWnd != null)
+            if (mainWnd != null)
             {
-                if (CBFigure.SelectedIndex == 0)
+                h1.Successor = h2;
+                var success = h1.HandleRequest(f);
+
+                if (success)
+                {
                     mainWnd.figure = f;
-                else
-                    mainWnd.figure = f;
+                    this.Close();
+                }
             }
-            this.Close();
         }
 
         private void CBFigure_SelectionChanged(object sender, SelectionChangedEventArgs e)
